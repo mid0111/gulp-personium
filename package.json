@@ -1,0 +1,15 @@
+{
+  "name": "gulp-personium",
+  "version": "0.0.2",
+  "description": "gulp plugin for personium.io client development.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "private": false,
+  "author": "mid0111",
+  "license": "MIT",
+  "dependencies": {
+    "request": "^2.51.0"
+  }
+}
