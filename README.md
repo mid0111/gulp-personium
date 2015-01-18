@@ -13,7 +13,7 @@ npm install --save-dev gulp-personium
 
 ### Upload WebDAV file on change.
 
-```javascript:gulp.js
+```js
 var gulp = require('gulp');
 var Personium = require('gulp-personium');
 
