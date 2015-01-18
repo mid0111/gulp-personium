@@ -16,11 +16,14 @@ npm install --save-dev gulp-personium
 Upload WebDAV file to WebDAV correction.  
 Note that you must create WebDAV correction in advance.
 
-* options
+* options  
   Set below options in constructor.
   * `baseDir`: Base directory to upload file.
   * `baseUrl`: Base URL to upload file.
-    Upload URL = baseUrl + '/' + baseDir + relative path from baseDir
+
+    ````
+Upload URL = baseUrl + '/' + baseDir + relative path from baseDir
+    ````
   * `token`: Request token (not contains 'Bearer').
 
 * support extension
@@ -28,7 +31,9 @@ Note that you must create WebDAV correction in advance.
   * html
   * css
 
-```js
+* sample gulpfile.js
+
+  ````js
 var gulp = require('gulp');
 var Personium = require('gulp-personium');
 
@@ -44,5 +49,5 @@ gulp.task('watch', function() {
 });
 
 gulp.task('default', ['watch']);
-```
+  ````
 
