@@ -1,7 +1,11 @@
 {
   "name": "gulp-personium",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "gulp plugin for personium.io client development.",
+  "keywords": [
+    "personium.io",
+    "gulp"
+  ],
   "main": "index.js",
   "dependencies": {
     "request": "^2.51.0"

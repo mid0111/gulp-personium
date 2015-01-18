@@ -12,14 +12,21 @@ module.exports = exports = function (obj) {
   if('string' === typeof obj.token) {
     options.token = obj.token;
   }
+  if('string' === typeof obj.baseDir) {
+    options.baseDir = obj.baseDir;
+  }
+
 };
 
 exports.prototype.options = options;
 
 exports.prototype.upload = function(event) {
   console.log('File ' + event.path + ' was ' + event.type + ', uploading file...');
+  var regExp = new RegExp('^.*\/' + options.baseDir +'\/(.*)');
+  var relativePath = event.path.replace(regExp, '\/' + options.baseDir + '\/$1');
+  var requestUrl = options.baseUrl + relativePath;
+  console.log(requestUrl);
 
-  var relativePath = event.path.replace(/^.*\/app\/(.*)$/g, '\/app\/$1');
   var ext = path.extname(event.path);
 
   var contentType;
@@ -32,7 +39,7 @@ exports.prototype.upload = function(event) {
   }
 
   request.put({
-    url: options.baseUrl + relativePath,
+    url: requestUrl,
     body: fs.readFileSync(event.path),
     headers :{
       'Authorization': 'Bearer ' + options.token,
