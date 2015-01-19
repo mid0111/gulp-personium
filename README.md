@@ -35,19 +35,24 @@ Upload URL = baseUrl + '/' + baseDir + relative path from baseDir
 
   ```js
   var gulp = require('gulp');
-  var Personium = require('gulp-personium');
-  
-  gulp.task('watch', function() {
-    var personium = new Personium({
-      baseUrl: 'http://192.168.59.103:8080/dc1-core/cellName',
-      baseDir: 'app',
-      token : 'masterToken'
-    });
-  
-    gulp.watch(['app/**/*.html', 'app/**/*.js', 'app/**/*.css'])
-      .on('change', personium.upload);
-    });
+  var personium = require('gulp-personium');
+  var livereload = require('gulp-livereload');
 
-  gulp.task('default', ['watch']);
+  gulp.task('upload', function() {
+    gulp.src(['app/**/*.html', 'app/**/*.js', 'app/**/*.css'])
+      .pipe(personium({
+        baseUrl: 'http://192.168.59.103:8080/dc1-core/cellName',
+        baseDir: 'app',
+        token : 'masterToken'
+      }))
+      .pipe(livereload());
+  });
+
+  gulp.task('watch', function() {
+    livereload.listen();
+    gulp.watch(['app/**/*.html', 'app/**/*.js', 'app/**/*.css'], ['upload']);
+  });
+
+  gulp.task('default', ['bower','watch']);
   ```
 
