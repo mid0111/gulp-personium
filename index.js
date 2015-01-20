@@ -1,55 +1,56 @@
-var through  = require('through2');
-var gutil    = require('gulp-util');
-var fs = require('fs');
+'use strict';
+
 var path = require('path');
+var fs = require('fs');
 var request = require('request');
+var options = {};
 
-module.exports = function(options) {
-  return through.obj(function(file, enc, cb) {
-    if (file.isNull()) {
-      this.push(file);
-      cb();
-    }
-    if (file.isStream()) {
-      this.emit('error', new gutil.PluginError('gulp-personium', 'Streaming not supported'));
-      cb();
-    }
+module.exports = exports = function(opts) {
+  options = opts;
+  return exports;
+};
 
-    console.log('File ' + file.path +  'uploading...');
+exports.options = options;
 
-    var formattedPath = path.normalize(file.path).replace(/\\/g, '\/');
-    
-    var regExp = new RegExp('^.*\/' + options.baseDir +'\/(.*)');
-    var relativePath = formattedPath.replace(regExp, '\/' + options.baseDir + '\/$1');
-    var requestUrl = options.baseUrl + relativePath;
+exports.upload = function(file, done) {
+  var filePath = file;
+  if('object' === typeof filePath) {
+    filePath = filePath.path;
+  }
 
-    var ext = path.extname(file.path);
+  console.log('File ' + filePath +  ' uploading...');
 
-    var contentType;
-    if(ext === '.js') {
-      contentType = 'text/javascript';
-    } else if(ext === '.html') {
-      contentType = 'text/html';
-    } else if(ext === '.css') {
-      contentType = 'text/css';
-    }
+  var formattedPath = path.normalize(filePath).replace(/\\/g, '\/');
+  
+  var regExp = new RegExp('^.*\/' + options.baseDir +'\/(.*)');
+  var relativePath = formattedPath.replace(regExp, '\/' + options.baseDir + '\/$1');
+  var requestUrl = options.baseUrl + relativePath;
 
-    var parent = this;
-    request.put({
-      url: requestUrl,
-      body: fs.readFileSync(file.path),
-      headers :{
-        'Authorization': 'Bearer ' + options.token,
-        'Content-Type': contentType
-      }
-    }, function(err, response, body) {
-      if(err) console.log(err);
-      if(response) console.log('Response: ' + response.statusCode);
-      if(body) console.log(body);
+  var ext = path.extname(filePath);
 
-      parent.push(file);
-      cb();
-    });
+  var contentType;
+  if(ext === '.js') {
+    contentType = 'text/javascript';
+  } else if(ext === '.html') {
+    contentType = 'text/html';
+  } else if(ext === '.css') {
+    contentType = 'text/css';
+  }
+
+  request.put({
+    url: requestUrl,
+    body: fs.readFileSync(filePath),
+    headers :{
+      'Authorization': 'Bearer ' + options.token,
+      'Content-Type': contentType
+    },
+    rejectUnauthorized : false
+  }, function(err, response, body) {
+    if(err) console.log(err);
+    if(response) console.log('Response: ' + response.statusCode);
+    if(body) console.log(body);
+    done(filePath);
   });
 };
+
 
