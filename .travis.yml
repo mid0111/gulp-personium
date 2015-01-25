@@ -8,4 +8,4 @@ addons:
       secure: "HddrCZHVmWH3c7wIRGgfPW+N29NY9WQgAnV6ZBLyRPCZsL4zMOM8vhoPast+f5nDl3TDZM8S99GJgG0FTEgCXeAXXhAIka6VPsiUYfC68CKOCTe3TXVbPI2DdahUoEDYzfbRAFgFbmhCQJqL+X2dEzSLkWXfsE4kOkUhH8uzAYg="
 
 after_script:
-  - cat lcov.info | codeclimate
+  - npm run coveralls
