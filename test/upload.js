@@ -6,6 +6,7 @@ var fs = require('fs');
 var path = require('path');
 var request = require('request');
 var sinon = require('sinon');
+var File = require('vinyl');
 
 describe('upload file', function() {
 
@@ -39,7 +40,7 @@ describe('upload file', function() {
       expect(obj.headers['Authorization']).to.be.equal('Bearer ' + token);
       expect(obj.headers['Content-Type']).to.be.equal('text/javascript');
       expect(obj.rejectUnauthorized).to.be.false();
-      callback();
+      callback(undefined, {statusCode: 204});
     });
 
     personium.upload(filePath, function(file) {
@@ -67,7 +68,7 @@ describe('upload file', function() {
       expect(obj.headers['Authorization']).to.be.equal('Bearer ' + token);
       expect(obj.headers['Content-Type']).to.be.equal('text/html');
       expect(obj.rejectUnauthorized).to.be.false();
-      callback();
+      callback(undefined, {statusCode: 201}, 'Created.');
     });
 
     personium.upload(filePath, function(file) {
@@ -98,8 +99,39 @@ describe('upload file', function() {
       callback();
     });
 
-    personium.upload(filePath, function(file) {
+
+    var vinyl = new File({
+      cwd: "/",
+      base: "/test/",
+      path: filePath,
+      contents: fs.readFileSync(filePath)
+    });
+    personium.upload(vinyl, function(file) {
       expect(file).to.be.equal(filePath);
+      done();
+    });
+  });
+
+  it('should return error when request failed.', function(done) {
+
+    var filePath = collection + path.sep + 'test.css';
+    var baseUrl = 'http://localhost/cellName';
+    var token = 'masterToken';
+    var personium = new Personium({
+      baseUrl: baseUrl,
+      baseDir: collection,
+      token : token
+    });
+
+    // fake request
+    var error = new Error('test error');
+    server = sinon.stub(request, 'put', function(obj, callback) {
+      callback(error);
+    });
+
+    personium.upload(filePath, function(file, err) {
+      expect(file).to.be.equal(filePath);
+      expect(err).to.be.equal(error);
       done();
     });
   });
