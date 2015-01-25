@@ -8,12 +8,10 @@
   ],
   "main": "index.js",
   "dependencies": {
-    "gulp-util": "^3.0.2",
-    "request": "^2.51.0",
-    "through2": "^0.6.3"
+    "request": "^2.51.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
@@ -24,5 +22,10 @@
   "bugs": {
     "url": "https://github.com/mid0111/gulp-personium/issues"
   },
-  "homepage": "https://github.com/mid0111/gulp-personium"
+  "homepage": "https://github.com/mid0111/gulp-personium",
+  "devDependencies": {
+    "chai": "^1.10.0",
+    "mocha": "^2.1.0",
+    "sinon": "^1.12.2"
+  }
 }
