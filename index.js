@@ -24,7 +24,12 @@ exports.upload = function(file, done) {
   
   var regExp = new RegExp('^.*\/' + options.baseDir +'\/(.*)');
   var relativePath = formattedPath.replace(regExp, '\/' + options.baseDir + '\/$1');
-  var requestUrl = options.baseUrl + relativePath;
+
+  var requestUrl = options.baseUrl;
+  if(!endsWith(requestUrl, '/')) {
+    requestUrl += '/';
+  }
+  requestUrl += relativePath;
 
   var ext = path.extname(filePath);
 
@@ -46,11 +51,20 @@ exports.upload = function(file, done) {
     },
     rejectUnauthorized : false
   }, function(err, response, body) {
-    if(err) console.log(err);
-    if(response) console.log('Response: ' + response.statusCode);
-    if(body) console.log(body);
+    if(err) {
+      console.error(err);
+      throw err;
+    }
+    if(response) {
+      console.log('Response: ' + response.statusCode);
+    }
+    if(body) {
+      console.log('Message: ' + body);
+    }
     done(filePath);
   });
 };
 
-
+function endsWith(str, suffix) {
+    return str.indexOf(suffix, str.length - suffix.length) !== -1;
+}
