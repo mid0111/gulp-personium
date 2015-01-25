@@ -1,6 +1,6 @@
 gulp-personium
 ==============
-[![Build Status](https://travis-ci.org/mid0111/gulp-personium.svg?branch=master)](https://travis-ci.org/mid0111/gulp-personium) [![Code Climate](https://codeclimate.com/github/mid0111/gulp-personium/badges/gpa.svg)](https://codeclimate.com/github/mid0111/gulp-personium) [![Test Coverage](https://codeclimate.com/github/mid0111/gulp-personium/badges/coverage.svg)](https://codeclimate.com/github/mid0111/gulp-personium)
+[![Build Status](https://travis-ci.org/mid0111/gulp-personium.svg?branch=master)](https://travis-ci.org/mid0111/gulp-personium) [![Code Climate](https://codeclimate.com/github/mid0111/gulp-personium/badges/gpa.svg)](https://codeclimate.com/github/mid0111/gulp-personium) [![Coverage Status](https://coveralls.io/repos/mid0111/gulp-personium/badge.svg)](https://coveralls.io/r/mid0111/gulp-personium)
 
 This project is gulp plugin for personium.io client development.
 
