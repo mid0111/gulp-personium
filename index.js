@@ -54,18 +54,19 @@ exports.upload = function(file, done) {
   }, function(err, response, body) {
     if(err) {
       gutil.log(err);
-      throw err;
+      done(filePath, err);
+    } else {
+      if(response) {
+        gutil.log('Response: ' + response.statusCode);
+      }
+      if(body) {
+        gutil.log('Message: ' + body);
+      }
+      done(filePath);
     }
-    if(response) {
-      gutil.log('Response: ' + response.statusCode);
-    }
-    if(body) {
-      gutil.log('Message: ' + body);
-    }
-    done(filePath);
   });
 };
 
 function endsWith(str, suffix) {
-    return str.indexOf(suffix, str.length - suffix.length) !== -1;
+  return str.indexOf(suffix, str.length - suffix.length) !== -1;
 }
