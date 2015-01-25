@@ -8,10 +8,12 @@
   ],
   "main": "index.js",
   "dependencies": {
+    "gulp-util": "^3.0.2",
     "request": "^2.51.0"
   },
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "coveralls": "istanbul cover _mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | coveralls && rm -rf ./coverage"
   },
   "repository": {
     "type": "git",
@@ -25,6 +27,8 @@
   "homepage": "https://github.com/mid0111/gulp-personium",
   "devDependencies": {
     "chai": "^1.10.0",
+    "coveralls": "^2.11.2",
+    "istanbul": "^0.3.5",
     "mocha": "^2.1.0",
     "sinon": "^1.12.2"
   }

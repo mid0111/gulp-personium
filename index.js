@@ -3,6 +3,7 @@
 var path = require('path');
 var fs = require('fs');
 var request = require('request');
+var gutil = require('gulp-util');
 var options = {};
 
 module.exports = exports = function(opts) {
@@ -18,7 +19,7 @@ exports.upload = function(file, done) {
     filePath = filePath.path;
   }
 
-  console.log('File ' + filePath +  ' uploading...');
+  gutil.log('File ' + filePath +  ' uploading...');
 
   var formattedPath = path.normalize(filePath).replace(/\\/g, '\/');
   
@@ -52,14 +53,14 @@ exports.upload = function(file, done) {
     rejectUnauthorized : false
   }, function(err, response, body) {
     if(err) {
-      console.error(err);
+      gutil.log(err);
       throw err;
     }
     if(response) {
-      console.log('Response: ' + response.statusCode);
+      gutil.log('Response: ' + response.statusCode);
     }
     if(body) {
-      console.log('Message: ' + body);
+      gutil.log('Message: ' + body);
     }
     done(filePath);
   });
