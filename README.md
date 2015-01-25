@@ -1,5 +1,6 @@
 gulp-personium
 ==============
+[![Build Status](https://travis-ci.org/mid0111/gulp-personium.svg?branch=master)](https://travis-ci.org/mid0111/gulp-personium) [![Code Climate](https://codeclimate.com/github/mid0111/gulp-personium/badges/gpa.svg)](https://codeclimate.com/github/mid0111/gulp-personium) [![Test Coverage](https://codeclimate.com/github/mid0111/gulp-personium/badges/coverage.svg)](https://codeclimate.com/github/mid0111/gulp-personium)
 
 This project is gulp plugin for personium.io client development.
 
@@ -31,15 +32,12 @@ Upload URL = baseUrl + '/' + baseDir + relative path from baseDir
   * html
   * css
 
-* sample gulpfile.js
+* sample gulpfile.js to upload webdav files and to reload browser.
 
   ```js
   var gulp = require('gulp');
   var Personium = require('gulp-personium');
   var livereload = require('gulp-livereload');
-  var Personium = require('gulp-personium');
-  var livereload = require('gulp-livereload');
-  
   var personium = new Personium({
             baseUrl: 'http://192.168.59.103:8080/dc1-core/todo-app',
             baseDir: 'app',
