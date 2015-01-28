@@ -17,12 +17,19 @@ npm install --save-dev gulp-personium
 Set below options in constructor.
 
 * `baseUrl`(required): Base URL to upload file.
+
 * `baseDir`(required): Base directory to upload file.
 
   ````
 Upload URL = baseUrl + '/' + baseDir + relative path from baseDir
   ````
 * `token`(optional): Request token (not contains 'Bearer').
+
+* `user`(optional): Account name for Basic authentication.  
+If either `user` property and `token` property are appointed, ignore `user` property.  
+So request to personium.io with 'Bearer' authentication scheme.
+
+* `password`(optional): Password for Basic authentication.
 
 ### Support extension
 
@@ -42,7 +49,7 @@ Note that you must create WebDAV corrections in advance.
 var gulp = require('gulp');
 var Personium = require('gulp-personium');
 var personium = new Personium({
-  baseUrl: 'http://192.168.59.103:8080/dc1-core/todo-app',
+  baseUrl: 'http://fqdn/todo-app',
   baseDir: 'app',
   token : 'masterToken'
 });
@@ -66,7 +73,7 @@ var gulp = require('gulp');
 var Personium = require('gulp-personium');
 var livereload = require('gulp-livereload');
 var personium = new Personium({
-  baseUrl: 'http://192.168.59.103:8080/dc1-core/todo-app',
+  baseUrl: 'http://fqdn/todo-app',
   baseDir: 'app',
   token : 'masterToken'
 });
@@ -82,4 +89,18 @@ gulp.task('watch', function() {
 
 gulp.task('default', ['watch']);
 
+```
+
+### Basic authentication.
+
+Setup for Basic authentication.
+
+```js
+var Personium = require('gulp-personium');
+var personium = new Personium({
+  baseUrl: 'http://fqdn/dc1-core/todo-app',
+  baseDir: 'app',
+  user : 'account name',
+  password: 'password'
+});
 ```

@@ -51,7 +51,7 @@ function uploadFile(file, cb) {
     url: getRequestUrl(filePath),
     body: fs.readFileSync(filePath),
     headers :{
-      'Authorization': 'Bearer ' + options.token,
+      'Authorization': getCredential(options),
       'Content-Type': getContentType(filePath)
     },
     rejectUnauthorized : false
@@ -107,3 +107,18 @@ function getRequestUrl(filePath) {
 
   return requestUrl;
 }
+
+function getCredential(opts) {
+  if(opts.token) {
+    return 'Bearer ' + opts.token;
+  }
+  if(opts.user) {
+    return 'Basic ' + toBase64(opts.user + ':' + opts.password);
+  }
+  return null;
+}
+
+function toBase64(str) {
+  return new Buffer(str, 'utf8').toString('base64');
+}
+
