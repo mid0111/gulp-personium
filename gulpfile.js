@@ -3,7 +3,7 @@ var mocha = require('gulp-mocha');
 
 gulp.task('test', function() {
   gulp.src(['test/**/*.js'])
-    .pipe(mocha);
+    .pipe(mocha());
 });
 
 gulp.task('default', ['test']);
