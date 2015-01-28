@@ -8,7 +8,7 @@ var request = require('request');
 var sinon = require('sinon');
 var File = require('vinyl');
 
-describe('Authorization', function() {
+describe('Authentication', function() {
 
   var server;
   var collection = 'test/resources';
