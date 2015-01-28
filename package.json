@@ -4,12 +4,13 @@
   "description": "gulp plugin for personium.io client development.",
   "keywords": [
     "personium.io",
-    "gulp"
+    "gulpplugin"
   ],
   "main": "index.js",
   "dependencies": {
     "gulp-util": "^3.0.2",
-    "request": "^2.51.0"
+    "request": "^2.51.0",
+    "through2": "^0.6.3"
   },
   "scripts": {
     "test": "mocha",

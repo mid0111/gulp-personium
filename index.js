@@ -1,9 +1,12 @@
 'use strict';
 
+var through = require('through2');
 var path = require('path');
 var fs = require('fs');
 var request = require('request');
 var gutil = require('gulp-util');
+
+var pluginName = 'gulp-personium';
 var options = {};
 
 module.exports = exports = function(opts) {
@@ -13,7 +16,30 @@ module.exports = exports = function(opts) {
 
 exports.options = options;
 
-exports.upload = function(file, done) {
+exports.upload = function(file, cb) {
+
+  if(!file) {
+
+    return through.obj(function(file, enc, cb) {
+      if (file.isNull()) {
+        // return empty file
+        cb(null, file);
+        return;
+      }
+      if (file.isStream()) {
+        cb(new gutil.PluginError(pluginName, 'Streaming not supported'));
+        return;
+      }
+      uploadFile(file);
+      cb(null, file);
+    });
+  }
+
+  return uploadFile(file, cb);
+
+};
+
+function uploadFile(file, cb) {
   var filePath = file;
   if('object' === typeof filePath) {
     filePath = filePath.path;
@@ -21,6 +47,53 @@ exports.upload = function(file, done) {
 
   gutil.log('File ' + filePath +  ' uploading...');
 
+  request.put({
+    url: getRequestUrl(filePath),
+    body: fs.readFileSync(filePath),
+    headers :{
+      'Authorization': 'Bearer ' + options.token,
+      'Content-Type': getContentType(filePath)
+    },
+    rejectUnauthorized : false
+  }, function(err, response, body) {
+    if(err) {
+      gutil.log(err);
+      if(cb) {
+        cb(filePath, err);
+      }
+
+    } else {
+      if(response) {
+        gutil.log('Response: ' + response.statusCode);
+      }
+      if(body) {
+        gutil.log('Message: ' + body);
+      }
+      if(cb) {
+        cb(filePath);
+      }
+    }
+  });
+};
+
+function endsWith(str, suffix) {
+  return str.indexOf(suffix, str.length - suffix.length) !== -1;
+}
+
+function getContentType(filePath) {
+  var ext = path.extname(filePath);
+
+  if(ext === '.js') {
+    return 'text/javascript';
+  } else if(ext === '.html') {
+    return 'text/html';
+  } else if(ext === '.css') {
+    return 'text/css';
+  }
+  return 'text/plain';
+}
+
+function getRequestUrl(filePath) {
   var formattedPath = path.normalize(filePath).replace(/\\/g, '\/');
   
   var regExp = new RegExp('^.*\/' + options.baseDir +'\/(.*)');
@@ -32,41 +105,5 @@ exports.upload = function(file, done) {
   }
   requestUrl += relativePath;
 
-  var ext = path.extname(filePath);
-
-  var contentType;
-  if(ext === '.js') {
-    contentType = 'text/javascript';
-  } else if(ext === '.html') {
-    contentType = 'text/html';
-  } else if(ext === '.css') {
-    contentType = 'text/css';
-  }
-
-  request.put({
-    url: requestUrl,
-    body: fs.readFileSync(filePath),
-    headers :{
-      'Authorization': 'Bearer ' + options.token,
-      'Content-Type': contentType
-    },
-    rejectUnauthorized : false
-  }, function(err, response, body) {
-    if(err) {
-      gutil.log(err);
-      done(filePath, err);
-    } else {
-      if(response) {
-        gutil.log('Response: ' + response.statusCode);
-      }
-      if(body) {
-        gutil.log('Message: ' + body);
-      }
-      done(filePath);
-    }
-  });
-};
-
-function endsWith(str, suffix) {
-  return str.indexOf(suffix, str.length - suffix.length) !== -1;
+  return requestUrl;
 }
