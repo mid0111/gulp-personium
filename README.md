@@ -12,7 +12,7 @@ npm install --save-dev gulp-personium
 
 ## Usage
 
-### options
+### Options
 
 Set below options in constructor.
 
@@ -24,7 +24,7 @@ Upload URL = baseUrl + '/' + baseDir + relative path from baseDir
   ````
 * `token`(optional): Request token (not contains 'Bearer').
 
-### support extension
+### Support extension
 
 This plugins support below extensions.
 * js
@@ -33,10 +33,10 @@ This plugins support below extensions.
 
 ### Sample
 
-#### Upload webdav files.
+#### Upload WebDAV files.
 
-Upload WebDAV file to WebDAV correction.  
-Note that you must create WebDAV correction in advance.
+Upload WebDAV files to WebDAV corrections.  
+Note that you must create WebDAV corrections in advance.
 
 ```js
 var gulp = require('gulp');
@@ -56,9 +56,9 @@ gulp.task('default', ['upload']);
 
 ```
 
-#### upload webdav files and to reload browser.
+#### Upload WebDAV files and send a change notification for LiveReload.
 
-Upload WebDAV file to WebDAV correction when watching file is changed.  
+Upload WebDAV files to WebDAV corrections when watching files are changed.  
 Note that you must create WebDAV correction in advance.
 
 ```js
