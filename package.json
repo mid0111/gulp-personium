@@ -1,6 +1,6 @@
 {
   "name": "gulp-personium",
-  "version": "0.0.7",
+  "version": "0.1.0",
   "description": "gulp plugin for personium.io client development.",
   "keywords": [
     "personium.io",
