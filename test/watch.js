@@ -8,7 +8,7 @@ var request = require('request');
 var sinon = require('sinon');
 var File = require('vinyl');
 
-describe('upload file', function() {
+describe('upload watching file', function() {
 
   var server;
   var collection = 'test/resources';
@@ -114,7 +114,7 @@ describe('upload file', function() {
 
   it('should return error when request failed.', function(done) {
 
-    var filePath = collection + path.sep + 'test.css';
+    var filePath = collection + path.sep + 'test.txt';
     var baseUrl = 'http://localhost/cellName';
     var token = 'masterToken';
     var personium = new Personium({
