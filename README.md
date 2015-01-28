@@ -23,8 +23,10 @@ Set below options in constructor.
 Upload URL = baseUrl + '/' + baseDir + relative path from baseDir
   ````
 * `token`(optional): Request token (not contains 'Bearer').
-* `user`(optional): Account name for basic authentication.
-* `password`(optional): Password for basic authentication.
+* `user`(optional): Account name for Basic authentication.  
+If either `user` property and `token` property are appointed, ignore `user` property.  
+So request to personium.io with 'Bearer' authentication scheme.
+* `password`(optional): Password for Basic authentication.
 
 ### Support extension
 
@@ -88,7 +90,7 @@ gulp.task('default', ['watch']);
 
 ### Basic authentication.
 
-Setup for basic authentication.
+Setup for Basic authentication.
 
 ```js
 var Personium = require('gulp-personium');
