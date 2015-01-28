@@ -17,15 +17,18 @@ npm install --save-dev gulp-personium
 Set below options in constructor.
 
 * `baseUrl`(required): Base URL to upload file.
+
 * `baseDir`(required): Base directory to upload file.
 
   ````
 Upload URL = baseUrl + '/' + baseDir + relative path from baseDir
   ````
 * `token`(optional): Request token (not contains 'Bearer').
+
 * `user`(optional): Account name for Basic authentication.  
 If either `user` property and `token` property are appointed, ignore `user` property.  
 So request to personium.io with 'Bearer' authentication scheme.
+
 * `password`(optional): Password for Basic authentication.
 
 ### Support extension
