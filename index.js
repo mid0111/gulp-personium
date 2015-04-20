@@ -97,13 +97,15 @@ function getRequestUrl(filePath) {
   var formattedPath = path.normalize(filePath).replace(/\\/g, '\/');
   
   var regExp = new RegExp('^.*\/' + options.baseDir +'\/(.*)');
-  var relativePath = formattedPath.replace(regExp, '\/' + options.baseDir + '\/$1');
+  var relativePath = formattedPath.replace(regExp, options.baseDir + '\/$1');
 
   var requestUrl = options.baseUrl;
   if(!endsWith(requestUrl, '/')) {
     requestUrl += '/';
   }
   requestUrl += relativePath;
+
+  gutil.log('upload url: ' + requestUrl);
 
   return requestUrl;
 }
