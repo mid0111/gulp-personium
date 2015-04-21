@@ -16,20 +16,31 @@ npm install --save-dev gulp-personium
 
 Set below options in constructor.
 
-* `baseUrl`(required): Base URL to upload file.
+#### baseUrl (required)
 
-* `baseDir`(required): Base directory to upload file.
+Base URL to upload file.
 
-  ````
+#### baseDir (required)
+
+Base directory to upload file.
+
+````
 Upload URL = baseUrl + '/' + baseDir + relative path from baseDir
-  ````
-* `token`(optional): Request token (not contains 'Bearer').
+````
 
-* `user`(optional): Account name for Basic authentication.  
+#### token (optional)
+
+Request token (not contains 'Bearer').
+
+#### user (optional)
+
+Account name for Basic authentication.  
 If either `user` property and `token` property are appointed, ignore `user` property.  
 So request to personium.io with 'Bearer' authentication scheme.
 
-* `password`(optional): Password for Basic authentication.
+#### password (optional)
+
+Password for Basic authentication.
 
 ### Support extension
 
@@ -77,11 +88,18 @@ var personium = new Personium({
   baseDir: 'app',
   token : 'masterToken'
 });
+var source = ['app/**/*.html', 'app/**/*.js', 'app/**/*.css'];
 
-gulp.task('watch', function() {
+
+gulp.task('upload', function() {
+  gulp.src(source)
+    .pipe(personium.upload());
+});
+
+gulp.task('watch', ['upload'], function() {
   livereload.listen();
 
-  gulp.watch(['app/**/*.html', 'app/**/*.js', 'app/**/*.css'])
+  gulp.watch(source)
     .on('change', function(event) {
       personium.upload(event, livereload.changed);
     });
@@ -91,7 +109,7 @@ gulp.task('default', ['watch']);
 
 ```
 
-### Basic authentication.
+#### Basic authentication.
 
 Setup for Basic authentication.
 
