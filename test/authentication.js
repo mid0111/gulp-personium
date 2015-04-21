@@ -44,7 +44,7 @@ describe('Authentication', function() {
       expect(obj.body.toString('utf8')).to.be.equal(fs.readFileSync(filePath, 'utf8'));
       expect(obj.headers['Authorization']).to.be.equal(expectedCredential);
       expect(obj.headers['Content-Type']).to.be.equal('text/javascript');
-      expect(obj.rejectUnauthorized).to.be.false();
+      expect(obj.rejectUnauthorized).to.be.false;
       callback(undefined, {statusCode: 204});
     });
 
@@ -72,7 +72,7 @@ describe('Authentication', function() {
       expect(obj.body.toString('utf8')).to.be.equal(fs.readFileSync(filePath, 'utf8'));
       expect(obj.headers['Authorization']).to.be.equal(expectedCredential);
       expect(obj.headers['Content-Type']).to.be.equal('text/javascript');
-      expect(obj.rejectUnauthorized).to.be.false();
+      expect(obj.rejectUnauthorized).to.be.false;
       callback(undefined, {statusCode: 204});
     });
 
@@ -102,7 +102,7 @@ describe('Authentication', function() {
       expect(obj.body.toString('utf8')).to.be.equal(fs.readFileSync(filePath, 'utf8'));
       expect(obj.headers['Authorization']).to.be.equal(expectedCredential);
       expect(obj.headers['Content-Type']).to.be.equal('text/javascript');
-      expect(obj.rejectUnauthorized).to.be.false();
+      expect(obj.rejectUnauthorized).to.be.false;
       callback(undefined, {statusCode: 204});
     });
 
@@ -127,7 +127,7 @@ describe('Authentication', function() {
       expect(obj.body.toString('utf8')).to.be.equal(fs.readFileSync(filePath, 'utf8'));
       expect(obj.headers['Authorization']).to.be.equal(expectedCredential);
       expect(obj.headers['Content-Type']).to.be.equal('text/javascript');
-      expect(obj.rejectUnauthorized).to.be.false();
+      expect(obj.rejectUnauthorized).to.be.false;
       callback(undefined, {statusCode: 204});
     });
 

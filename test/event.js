@@ -55,7 +55,7 @@ describe('Event stream', function() {
 
     stream.on('data', function(file) {
       expect(file.path).to.be.equal(filePath);
-      expect(file.contents).to.be.null();
+      expect(file.contents).to.be.null;
       mock.verify();
       done();
     });

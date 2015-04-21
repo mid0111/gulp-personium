@@ -39,7 +39,7 @@ describe('upload watching file', function() {
       expect(obj.body.toString('utf8')).to.be.equal(fs.readFileSync(filePath, 'utf8'));
       expect(obj.headers['Authorization']).to.be.equal('Bearer ' + token);
       expect(obj.headers['Content-Type']).to.be.equal('text/javascript');
-      expect(obj.rejectUnauthorized).to.be.false();
+      expect(obj.rejectUnauthorized).to.be.false;
       callback(undefined, {statusCode: 204});
     });
 
@@ -67,7 +67,7 @@ describe('upload watching file', function() {
       expect(obj.body.toString('utf8')).to.be.equal(fs.readFileSync(filePath, 'utf8'));
       expect(obj.headers['Authorization']).to.be.equal('Bearer ' + token);
       expect(obj.headers['Content-Type']).to.be.equal('text/html');
-      expect(obj.rejectUnauthorized).to.be.false();
+      expect(obj.rejectUnauthorized).to.be.false;
       callback(undefined, {statusCode: 201}, 'Created.');
     });
 
@@ -95,7 +95,7 @@ describe('upload watching file', function() {
       expect(obj.body.toString('utf8')).to.be.equal(fs.readFileSync(filePath, 'utf8'));
       expect(obj.headers['Authorization']).to.be.equal('Bearer ' + token);
       expect(obj.headers['Content-Type']).to.be.equal('text/css');
-      expect(obj.rejectUnauthorized).to.be.false();
+      expect(obj.rejectUnauthorized).to.be.false;
       callback();
     });
 
